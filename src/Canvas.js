@@ -3,25 +3,26 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import { easing } from 'maath'
 import { useRef } from 'react'
 import { useSnapshot } from 'valtio'
+import { Background } from './Background'
 import { Shirt } from './Shirt'
-import { Shirt3 } from './Shirt3'
+import { Shoes } from './Shoes'
+import { TShirt } from './TShirt'
 import { state } from './store'
-
-
 
 export const App = ({ position = [0, 0, 2.5], fov = 25 }) => {
   const snap = useSnapshot(state)
-  console.log('snap.intro')
-  console.log(snap.intro)
+
   return (
     <Canvas shadows camera={{ position, fov }} gl={{ preserveDrawingBuffer: true }} eventSource={document.getElementById('root')} eventPrefix="client">
-      <ambientLight intensity={0.5} />
+      <Background />
+      <ambientLight intensity={0.6} />
       <Environment files="https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/potsdamer_platz_1k.hdr" />
+      
       <CameraRig>
-        <Backdrop />
         <Center>
           {(snap.model === 1 || snap.intro) && <Shirt />}
-          {(snap.model === 2 || snap.intro) && <Shirt3 />}
+          {(snap.model === 2 || snap.intro) && <TShirt />}
+          {(snap.model === 3 || snap.intro) && <Shoes />}
         </Center>
       </CameraRig>
     </Canvas>
@@ -33,8 +34,8 @@ function Backdrop() {
   useFrame((state, delta) => easing.dampC(shadows.current.getMesh().material.color, state.color, 0.25, delta))
   return (
     <AccumulativeShadows ref={shadows} temporal frames={60} alphaTest={0.85} scale={10} rotation={[Math.PI / 2, 0, 0]} position={[0, 0, -0.14]}>
-      <RandomizedLight amount={4} radius={9} intensity={0.55} ambient={0.25} position={[5, 5, -10]} />
-      <RandomizedLight amount={4} radius={5} intensity={0.25} ambient={0.55} position={[-5, 5, -9]} />
+      <RandomizedLight amount={4} radius={5} intensity={1} ambient={10} position={[5, 5, -10]} />
+
     </AccumulativeShadows>
   )
 }
@@ -43,7 +44,6 @@ function CameraRig({ children }) {
   const group = useRef()
   const snap = useSnapshot(state)
   useFrame((state, delta) => {
-    console.log(-state.viewport.width / 30)
     easing.damp3(state.camera.position, [snap.intro ? 0.002 : state.model === 1 ? 1 : 1, 0, 2], 0.25, delta)
     easing.dampE(group.current.rotation, [state.pointer.y / 10, -state.pointer.x / 5, 0], 0.25, delta)
   })

@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { AiFillCamera, AiOutlineArrowLeft, AiOutlineHighlight } from 'react-icons/ai'
 import { useSnapshot } from 'valtio'
+import { ControlsShirt } from './ControlsShirt'
 import { state } from './store'
 
 export function Overlay() {
@@ -47,7 +48,7 @@ export function Overlay() {
                     delay: 0.2,
                     delayChildren: 0.2
                   }}>
-                  <p>Personalize 3d model.</p>
+                  <p>Click on a 3d Model for customize.</p>
                 </motion.div>
               </div>
             </div>
@@ -67,20 +68,13 @@ export function Overlay() {
                     delay: 0.2,
                     delayChildren: 0.2
                   }}>
-                  <button className="uiButton1" style={{ background: snap.color  }} onClick={() => customize(1)}>
-                    CUSTOMIZE <AiOutlineHighlight size="1.3em" />
-                  </button>
-
-                  <button className="uiButton2" style={{ background: snap.color }} onClick={() => customize(2)}>
-                    CUSTOMIZE <AiOutlineHighlight size="1.3em" />
-                  </button>
                 </motion.div>
               </div>
             </div>
           </motion.section>
         ) : (
           <motion.section key="custom" {...config}>
-            <Customizer />
+            {state.model === 1 ? <ControlsShirt /> : <Customizer />}
           </motion.section>
         )}
       </AnimatePresence>
@@ -100,12 +94,13 @@ function Customizer() {
       <div className="decals">
         <div className="decals--container">
           {snap.decals.map((decal) => (
-            <div key={decal} className={`decal`} onClick={() => (state.decal = decal)}>
+            <div key={decal} className={`decal`} onClick={() => (state.decal_shirt = decal)}>
               <img src={decal + '_thumb.png'} alt="brand" />
             </div>
           ))}
         </div>
       </div>
+
       <button
         className="share"
         style={{ background: snap.color }}

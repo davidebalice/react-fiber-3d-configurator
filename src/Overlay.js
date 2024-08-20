@@ -1,7 +1,9 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import { AiFillCamera, AiOutlineArrowLeft, AiOutlineHighlight } from 'react-icons/ai'
+import { AiFillCamera, AiOutlineArrowLeft } from 'react-icons/ai'
 import { useSnapshot } from 'valtio'
 import { ControlsShirt } from './ControlsShirt'
+import { ControlsShoes } from './ControlsShoes'
+import { ControlsTShirt } from './ControlsTShirt'
 import { state } from './store'
 
 export function Overlay() {
@@ -11,11 +13,6 @@ export function Overlay() {
     initial: { x: -100, opacity: 0, transition: { ...transition, delay: 0.5 } },
     animate: { x: 0, opacity: 1, transition: { ...transition, delay: 0 } },
     exit: { x: -100, opacity: 0, transition: { ...transition, delay: 0 } }
-  }
-
-  const customize = (model) => {
-    state.intro = false
-    state.model = model
   }
 
   return (
@@ -67,14 +64,13 @@ export function Overlay() {
                     duration: 0.6,
                     delay: 0.2,
                     delayChildren: 0.2
-                  }}>
-                </motion.div>
+                  }}></motion.div>
               </div>
             </div>
           </motion.section>
         ) : (
           <motion.section key="custom" {...config}>
-            {state.model === 1 ? <ControlsShirt /> : <Customizer />}
+            {state.model === 1 ? <ControlsShirt /> : state.model === 2 ? <ControlsTShirt /> : state.model === 3 ? <ControlsShoes /> : ''}
           </motion.section>
         )}
       </AnimatePresence>

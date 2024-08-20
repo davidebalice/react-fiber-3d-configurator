@@ -41,12 +41,22 @@ function Backdrop() {
 }
 
 function CameraRig({ children }) {
-  const group = useRef()
-  const snap = useSnapshot(state)
-  useFrame((state, delta) => {
-    easing.damp3(state.camera.position, [snap.intro ? 0.002 : state.model === 1 ? 1 : 1, 0, 2], 0.25, delta)
-    easing.dampE(group.current.rotation, [state.pointer.y / 10, -state.pointer.x / 5, 0], 0.25, delta)
-  })
+  const group = useRef();
+  const snap = useSnapshot(state);
 
-  return <group ref={group}>{children}</group>
+  useFrame((state, delta) => {
+    const targetPosition = snap.intro
+      ? [0.002, 0, 2]
+      : snap.model === 1
+      ? [0.4, -0.05, 2]
+      : snap.model === 2
+      ? [-0.18, 0.26, 2]
+      : [0.8, 0, 2];
+
+    easing.damp3(state.camera.position, targetPosition, 0.25, delta);
+
+    easing.dampE(group.current.rotation, [state.pointer.y / 10, -state.pointer.x / 5, 0], 0.25, delta);
+  });
+
+  return <group ref={group}>{children}</group>;
 }

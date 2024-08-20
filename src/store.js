@@ -12,7 +12,9 @@ const state = proxy({
   color_shoes: '#633f11',
   decal_shirt: 'db2',
   decal_tshirt: 'db',
-  rotation_shirt: 0
+  rotation_shirt: 0,
+  rotation_tshirt: 0,
+  rotation_shoes: 0
 })
 
 export { state }

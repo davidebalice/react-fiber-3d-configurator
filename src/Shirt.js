@@ -1,3 +1,4 @@
+import { animated, useSpring } from '@react-spring/three'
 import { Box, Decal, useGLTF, useTexture } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { easing } from 'maath'
@@ -14,6 +15,10 @@ export function Shirt(props) {
   useFrame((state, delta) => easing.dampC(material.color, snap.color_shirt, 0.25, delta))
 
   const meshRef = useRef()
+
+  const position = [-0.56, 0.11, 0]
+  const zoom1 = [-0.003, -0.003, -0.003];
+  const zoom2 = [-0.005, -0.005, -0.005];
 
   const handlePointerOver = (event) => {
     if (meshRef.current && state.intro === true) {
@@ -34,11 +39,14 @@ export function Shirt(props) {
     state.model = 1
   }
 
-  const position = [-0.56, 0.11, 0]
+  const { scale } = useSpring({
+    scale: snap.intro ? zoom1 : zoom2,
+    config: { mass: 1, tension: 170, friction: 26 }
+  })
 
   return (
     <>
-      <mesh
+      <animated.mesh
         ref={meshRef}
         castShadow
         geometry={nodes.Object_6.geometry}
@@ -51,12 +59,12 @@ export function Shirt(props) {
         onClick={() => customize()}
         onPointerOver={handlePointerOver}
         onPointerOut={handlePointerOut}
-        scale={snap.intro ? [-0.003, -0.003, -0.003] : [-0.005, -0.005, -0.005]}>
+        scale={scale}>
         <Box args={[20, 20, 20]} position={[0.5, 6.2, -14]} rotation={[-0.25, 0.08, 0.1]}>
           <meshStandardMaterial attach="material" color="white" transparent opacity={0} />
           <Decal position={[1.2, 3.4, 1.5]} rotation={[4.7, 0, 3.08]} scale={17} map={texture} map-anisotropy={16} />
         </Box>
-      </mesh>
+      </animated.mesh>
     </>
   )
 }

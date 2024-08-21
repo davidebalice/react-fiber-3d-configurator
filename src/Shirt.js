@@ -6,7 +6,7 @@ import React, { useRef } from 'react'
 import { useSnapshot } from 'valtio'
 import { state } from './store'
 
-export function Shirt(props) {
+export function Shirt({ isMobile }) {
   const snap = useSnapshot(state)
   console.log(snap.decal_shirt)
   const texture = useTexture(`/${snap.decal_shirt}.png`)
@@ -16,9 +16,19 @@ export function Shirt(props) {
 
   const meshRef = useRef()
 
-  const position = [-0.56, 0.11, 0]
-  const zoom1 = [-0.003, -0.003, -0.003];
-  const zoom2 = [-0.005, -0.005, -0.005];
+  let position = [0, 0, 0]
+  let zoom1 = [0, 0, 0];
+  let zoom2 = [0, 0, 0];
+
+  if (isMobile) {
+    position = [0, -0.19, 0]
+    zoom1 = [-0.003, -0.003, -0.003]
+    zoom2 = [-0.005, -0.005, -0.005]
+  } else {
+    position = [-0.56, 0.11, 0]
+    zoom1 = [-0.003, -0.003, -0.003]
+    zoom2 = [-0.005, -0.005, -0.005]
+  }
 
   const handlePointerOver = (event) => {
     if (meshRef.current && state.intro === true) {
@@ -53,14 +63,13 @@ export function Shirt(props) {
         material={material}
         material-roughness={1}
         position={position}
-        {...props}
         dispose={null}
         rotation={[5, 0, snap.rotation_shirt]}
         onClick={() => customize()}
         onPointerOver={handlePointerOver}
         onPointerOut={handlePointerOut}
         scale={scale}>
-        <Box args={[20, 20, 20]} position={[0.5, 6.2, -14]} rotation={[-0.25, 0.08, 0.1]}>
+        <Box args={[20, 20, 20]} position={[-1, 6.2, -14]} rotation={[-0.25, 0.08, 0.1]}>
           <meshStandardMaterial attach="material" color="white" transparent opacity={0} />
           <Decal position={[1.2, 3.4, 1.5]} rotation={[4.7, 0, 3.08]} scale={17} map={texture} map-anisotropy={16} />
         </Box>
@@ -71,10 +80,3 @@ export function Shirt(props) {
 
 useGLTF.preload('/shirt-hoodie.gltf')
 ;['/db.png', '/react.png', '/three2.png', '/pmndrs.png'].forEach(useTexture.preload)
-
-/*
-  <Box args={[20, 20, 20]} position={[-2.9, 7.8, -14]} rotation={[-0.2, 0, -0.25]}>
-        <meshStandardMaterial attach="material" color="white" transparent opacity={0} />
-        <Decal position={[1.2, 3.4, 1.5]} rotation={[4.7, 0, 3.1]} scale={18} map={texture} map-anisotropy={16} />
-      </Box>
-*/

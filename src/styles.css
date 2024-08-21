@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200;0,600;1,900&display=swap');
-@import url('https://rsms.me/inter/inter.css');
 html {
   font-family: 'Inter', sans-serif;
 }
@@ -23,6 +22,21 @@ body,
   padding: 0;
   overflow: hidden;
   user-select: none;
+}
+
+@media screen and (max-width: 800px) {
+  html,
+  body,
+  #root,
+  #main {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    user-select: none;
+  }
 }
 
 body {
@@ -125,25 +139,25 @@ section {
 }
 
 button {
-  background-color: #dd5c18;
+  background-color: #ccc;
   border: none;
   border-radius: 4px;
-  color: white;
-  font-weight: bolder;
+  color: #333;
+  font-weight: bold;
   pointer-events: all;
   cursor: pointer;
   transition: all 0.4s ease-in-out;
-  box-shadow: inset 0 0 0 0.09px black;
-  text-transform: uppercase;
   display: flex;
   align-items: center;
   gap: 15px;
-  padding: 15px 30px;
+  padding: 10px 20px !important;
+  box-shadow: 0 0 0 0.09px black;
 }
 
 button:hover {
-  box-shadow: inset 250px 0 0 0 black;
-  transform: scale(1.1);
+  transform: scale(1.04);
+  color: #fff;
+  background-color: #333;
 }
 
 /* CUSTOMIZER */
@@ -167,6 +181,57 @@ button:hover {
 .customizer span svg {
   width: 24px;
   padding-right: 5px;
+}
+
+.controls {
+  position: absolute;
+  right: 20px;
+  top: 100px;
+  width: 30%;
+  z-index: 1000;
+  color: #00000056;
+  font-size: 0.6rem;
+  border: 1px solid #00000000;
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: border, color 1s ease;
+  min-height: 100px;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.controls p {
+  font-size: 14px;
+  padding-bottom: 0px !important;
+  font-weight: normal;
+  color: #fff;
+}
+
+.controls-header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #999;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+@media screen and (max-width: 800px) {
+  .controls {
+    position: none;
+    width: 90%;
+    margin: 0 auto !important;
+    margin-top: 70%;
+    color: #00000056;
+    font-size: 0.6rem;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: border, color 1s ease;
+    min-height: 100px;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+}
+
+.rotation {
+  width: 60%;
 }
 
 .share {
@@ -207,26 +272,47 @@ button:hover {
 .color-options {
   display: flex;
   gap: 10px;
-  margin-bottom: 20px;
 }
 
-.circle {
+.color {
   width: 30px;
   height: 30px;
-  border-radius: 50%;
-  border: 2px solid white;
+  border-radius: 4px;
+  border: 1px solid white;
   transition: transform 0.6s cubic-bezier(0.85, 0, 0.15, 1);
 }
 
-.circle:hover {
+.color:hover {
   transform: scale(1.2);
   cursor: pointer;
 }
 
-.decals {
-  position: absolute;
-  left: 50px;
-  bottom: 40px;
+@media screen and (max-width: 600px) {
+  .uiSection {
+  }
+
+  .uiSection h1 {
+    font-size: 8rem;
+    letter-spacing: -6px;
+    line-height: 6rem;
+  }
+
+  .color-options {
+    gap: 4px;
+  }
+
+  .color {
+    width: 22px;
+    height: 22px;
+    border-radius: 4px;
+    border: 1px solid white;
+    transition: transform 0.6s cubic-bezier(0.85, 0, 0.15, 1);
+  }
+
+  .uiContent {
+    top: -10%;
+    left: 0;
+  }
 }
 
 .decals p {
@@ -278,43 +364,6 @@ button:hover {
 .decals--container {
   display: flex;
   gap: 20px;
-}
-
-.exit {
-  position: absolute;
-  top: 40px;
-  right: 40px;
-  background-color: black;
-  box-shadow: inset 0 0 0 0.09px black;
-}
-
-.exit:hover {
-  box-shadow: inset -250px 0 0 0 black;
-}
-
-@media screen and (max-width: 600px) {
-  .uiSection {
-  }
-
-  .uiSection h1 {
-    font-size: 8rem;
-    letter-spacing: -6px;
-    line-height: 6rem;
-  }
-
-  .color-options {
-    margin-bottom: 20px;
-    flex-direction: column;
-    position: absolute;
-    top: 50%;
-    right: 40px;
-    transform: translateY(-50%);
-  }
-
-  .uiContent {
-    top: -10%;
-    left: 0;
-  }
 }
 
 .uiButton1 {
@@ -369,4 +418,40 @@ button:hover {
     clear: both;
     left: 0;
   }
+}
+
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.spinner {
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #999;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.logoPreloader {
+  width: 60px;
+  position: absolute;
 }

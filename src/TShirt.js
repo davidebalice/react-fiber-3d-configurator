@@ -7,9 +7,8 @@ import * as THREE from 'three'
 import { useSnapshot } from 'valtio'
 import { state } from './store'
 
-export function TShirt(props) {
+export function TShirt({ isMobile }) {
   const snap = useSnapshot(state)
-  console.log(snap.decal_tshirt)
   const texture = useTexture(`/${snap.decal_tshirt}.png`)
 
   const { nodes, materials } = useGLTF('/tshirt.gltf')
@@ -28,12 +27,28 @@ export function TShirt(props) {
 
   const meshRef = useRef()
 
-  const rotation = [3.3, 0, 0]
-  const rotationGroup = [-0.1, snap.rotation_tshirt, 0]
-  const position = [0, 0, 0]
-  const positionGroup = [-1.06, -0.20, 0]
-  const zoom1 = [0.26, 0.26, 0.26]
-  const zoom2 = [0.48, 0.48, 0.48]
+  let rotation = [3.3, 0, 0]
+  let rotationGroup = [-0.1, snap.rotation_tshirt, 0]
+  let position = [0, 0, 0]
+  let positionGroup = [-1.06, -0.2, 0]
+  let zoom1 = [0.26, 0.26, 0.26]
+  let zoom2 = [0.48, 0.48, 0.48]
+
+  if (isMobile) {
+    rotation = [3.3, 0, 0]
+    rotationGroup = [-0.1, snap.rotation_tshirt, 0]
+    position = [0, 0, 0]
+    positionGroup = [0, -0.62, 0]
+    zoom1 = [0.32, 0.32, 0.32]
+    zoom2 = [0.48, 0.48, 0.48]
+  } else {
+    rotation = [3.3, 0, 0]
+    rotationGroup = [-0.1, snap.rotation_tshirt, 0]
+    position = [0, 0, 0]
+    positionGroup = [-1.06, -0.23, 0]
+    zoom1 = [0.28, 0.28, 0.28]
+    zoom2 = [0.48, 0.48, 0.48]
+  }
 
   const handlePointerOver = (event) => {
     if (meshRef.current && snap.intro === true) {
@@ -73,7 +88,6 @@ export function TShirt(props) {
           geometry={nodes.Object_10.geometry}
           material={material}
           material-roughness={1}
-          {...props}
           dispose={null}
           rotation={rotation}
           position={position}
@@ -91,7 +105,6 @@ export function TShirt(props) {
           geometry={nodes.Object_0.geometry}
           material={material2}
           material-roughness={1}
-          {...props}
           dispose={null}
           position={position}
           rotation={rotation}
@@ -102,7 +115,6 @@ export function TShirt(props) {
           geometry={nodes.Object_0_1.geometry}
           material={material2}
           material-roughness={1}
-          {...props}
           dispose={null}
           position={position}
           rotation={rotation}

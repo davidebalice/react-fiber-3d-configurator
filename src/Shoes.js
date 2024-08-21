@@ -5,11 +5,12 @@ import { easing } from 'maath'
 import React, { useRef } from 'react'
 import { useSnapshot } from 'valtio'
 import { state } from './store'
+import CONFIG from './config';
 
 export function Shoes({ isMobile }) {
   const snap = useSnapshot(state)
 
-  const { nodes, materials } = useGLTF('/leather-shoes.gltf')
+  const { nodes, materials } = useGLTF(`${CONFIG.BASE_URL}assets/leather-shoes.gltf`)
 
   const material = materials['chose']
   const material2 = materials['material']
@@ -115,6 +116,3 @@ export function Shoes({ isMobile }) {
     </>
   )
 }
-
-useGLTF.preload('/leather-shoes.gltf')
-;['/react.png', '/three2.png', '/pmndrs.png'].forEach(useTexture.preload)

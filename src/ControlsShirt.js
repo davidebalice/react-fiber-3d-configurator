@@ -1,6 +1,7 @@
 import { AiFillCamera, AiOutlineArrowLeft } from 'react-icons/ai'
 import { useSnapshot } from 'valtio'
 import { state } from './store'
+import CONFIG from './config'
 
 export function ControlsShirt() {
   const snap = useSnapshot(state)
@@ -54,7 +55,7 @@ export function ControlsShirt() {
           <div className="decals--container">
             {snap.decals.map((decal) => (
               <div key={decal} className={`decal`} onClick={() => (state.decal_shirt = decal)}>
-                <img src={decal + '_thumb.png'} alt="brand" />
+                <img src={`${CONFIG.BASE_URL}assets/${decal}_thumb.png`} alt="brand" />
               </div>
             ))}
           </div>

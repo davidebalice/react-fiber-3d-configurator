@@ -5,13 +5,14 @@ import { easing } from 'maath'
 import React, { useRef } from 'react'
 import * as THREE from 'three'
 import { useSnapshot } from 'valtio'
+import CONFIG from './config'
 import { state } from './store'
 
 export function TShirt({ isMobile }) {
   const snap = useSnapshot(state)
-  const texture = useTexture(`/${snap.decal_tshirt}.png`)
+  const texture = useTexture(`${CONFIG.BASE_URL}assets/${snap.decal_tshirt}.png`)
 
-  const { nodes, materials } = useGLTF('/tshirt.gltf')
+  const { nodes, materials } = useGLTF(`${CONFIG.BASE_URL}assets/tshirt.gltf`)
 
   const material = materials['Body_FRONT_2664']
   const material2 = materials['Sleeves_FRONT_2669']
@@ -123,6 +124,3 @@ export function TShirt({ isMobile }) {
     </>
   )
 }
-
-useGLTF.preload('/tshirt.gltf')
-;['/react.png', '/three2.png', '/pmndrs.png'].forEach(useTexture.preload)

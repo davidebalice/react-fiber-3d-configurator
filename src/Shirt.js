@@ -5,12 +5,13 @@ import { easing } from 'maath'
 import React, { useRef } from 'react'
 import { useSnapshot } from 'valtio'
 import { state } from './store'
+import CONFIG from './config';
 
 export function Shirt({ isMobile }) {
   const snap = useSnapshot(state)
   console.log(snap.decal_shirt)
-  const texture = useTexture(`/${snap.decal_shirt}.png`)
-  const { nodes, materials } = useGLTF('/shirt-hoodie.gltf')
+  const texture = useTexture(`${CONFIG.BASE_URL}assets/${snap.decal_shirt}.png`)
+  const { nodes, materials } = useGLTF(`${CONFIG.BASE_URL}assets/shirt-hoodie.gltf`)
   const material = materials['Material.001']
   useFrame((state, delta) => easing.dampC(material.color, snap.color_shirt, 0.25, delta))
 
@@ -77,6 +78,3 @@ export function Shirt({ isMobile }) {
     </>
   )
 }
-
-useGLTF.preload('/shirt-hoodie.gltf')
-;['/db.png', '/react.png', '/three2.png', '/pmndrs.png'].forEach(useTexture.preload)

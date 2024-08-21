@@ -34,7 +34,7 @@ export function Overlay() {
   return (
     <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
       <motion.header initial={{ opacity: 0, y: -100 }} animate={{ opacity: 1, y: 0 }} transition={transition}>
-        <img src="/logo.png" alt="Logo" width="120" />
+        <img src="/assets/logo.png" alt="Logo" width="120" />
       </motion.header>
       {snap.isMobile && (
         <>

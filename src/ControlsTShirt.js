@@ -1,6 +1,7 @@
 import { AiFillCamera, AiOutlineArrowLeft } from 'react-icons/ai'
 import { useSnapshot } from 'valtio'
 import { state } from './store'
+import CONFIG from './config'
 
 export function ControlsTShirt() {
   const snap = useSnapshot(state)
@@ -14,7 +15,15 @@ export function ControlsTShirt() {
     <div className="customizer">
       <div className="controls">
         <p>Rotation</p>
-        <input type="range" min="-Math.PI" max={2 * Math.PI} step="0.01" value={snap.rotation_tshirt || 0} onChange={handleRotationChange} className="rotation" />
+        <input
+          type="range"
+          min="-Math.PI"
+          max={2 * Math.PI}
+          step="0.01"
+          value={snap.rotation_tshirt || 0}
+          onChange={handleRotationChange}
+          className="rotation"
+        />
         <br />
         <br />
         <p>Primary colors</p>
@@ -38,7 +47,7 @@ export function ControlsTShirt() {
           <div className="decals--container">
             {snap.decals.map((decal) => (
               <div key={decal} className={`decal`} onClick={() => (state.decal_tshirt = decal)}>
-                <img src={decal + '_thumb.png'} alt="brand" />
+                <img src={`${CONFIG.BASE_URL}assets/${decal}_thumb.png`} alt="brand" />
               </div>
             ))}
           </div>

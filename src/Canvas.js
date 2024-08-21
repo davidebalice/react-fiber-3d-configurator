@@ -1,9 +1,10 @@
-import { Center, Environment, useProgress } from '@react-three/drei'
+import { Center, Environment, useGLTF, useProgress } from '@react-three/drei'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { easing } from 'maath'
 import React, { useEffect, useRef, useState } from 'react'
 import { useSnapshot } from 'valtio'
 import { Background } from './Background'
+import CONFIG from './config'
 import { Preloader } from './Preloader'
 import { Shirt } from './Shirt'
 import { Shoes } from './Shoes'
@@ -25,6 +26,8 @@ export const App = ({ position = [0, 0, 2.5], fov = 25 }) => {
 
     return () => window.removeEventListener('resize', checkIfMobile)
   }, [state, snap])
+
+  console.log(progress)
 
   useEffect(() => {
     if (progress === 100) {
@@ -68,12 +71,20 @@ function CameraRig({ children }) {
   const snap = useSnapshot(state)
 
   useFrame((state, delta) => {
-    const targetPosition = snap.intro ? [0.002, 0, 2] : snap.model === 1 ? [0.4, -0.05, 2] : snap.model === 2 ? [-0.18, 0.26, 2] : [0.8, 0, 2]
+    let targetPosition
+    if (!snap.isMobile) {
+      targetPosition = snap.intro ? [0.002, 0, 2] : snap.model === 1 ? [0.4, -0.05, 2] : snap.model === 2 ? [-0.18, 0.26, 2] : [0.8, 0, 2]
+    } else {
+      targetPosition = snap.intro ? [0.002, 0, 2] : snap.model === 1 ? [-0.01, -0.05, 2] : snap.model === 2 ? [0, 0.19, 2] : [0, 0, 2]
+    }
 
     easing.damp3(state.camera.position, targetPosition, 0.25, delta)
-
     easing.dampE(group.current.rotation, [state.pointer.y / 10, -state.pointer.x / 5, 0], 0.25, delta)
   })
 
   return <group ref={group}>{children}</group>
 }
+
+useGLTF.preload(`${CONFIG.BASE_URL}assets/tshirt.gltf`)
+useGLTF.preload(`${CONFIG.BASE_URL}assets/shirt-hoodie.gltf`)
+useGLTF.preload(`${CONFIG.BASE_URL}assets/leather-shoes.gltf`)

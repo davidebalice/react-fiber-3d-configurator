@@ -13,8 +13,31 @@ export function ControlsShoes() {
   return (
     <div className="customizer">
       <div className="controls">
+        <div className="controls-header">
+          <button onClick={() => (state.intro = true)}>
+            <AiOutlineArrowLeft size="1.3em" /> Back
+          </button>
+
+          <button
+            onClick={() => {
+              const link = document.createElement('a')
+              link.setAttribute('download', 'canvas.png')
+              link.setAttribute('href', document.querySelector('canvas').toDataURL('image/png').replace('image/png', 'image/octet-stream'))
+              link.click()
+            }}>
+            <AiFillCamera size="1.3em" /> Download
+          </button>
+        </div>
         <p>Rotation</p>
-        <input type="range" min="-Math.PI"  max={2 * Math.PI} step="0.01" value={snap.rotation_shoes || 0} onChange={handleRotationChange} className="rotation" />
+        <input
+          type="range"
+          min="-Math.PI"
+          max={2 * Math.PI}
+          step="0.01"
+          value={snap.rotation_shoes || 0}
+          onChange={handleRotationChange}
+          className="rotation"
+        />
         <br />
         <br />
         <p>Primary colors</p>
@@ -33,23 +56,6 @@ export function ControlsShoes() {
         </div>
         <br />
       </div>
-
-      <button
-        className="share"
-        style={{ background: snap.color }}
-        onClick={() => {
-          const link = document.createElement('a')
-          link.setAttribute('download', 'canvas.png')
-          link.setAttribute('href', document.querySelector('canvas').toDataURL('image/png').replace('image/png', 'image/octet-stream'))
-          link.click()
-        }}>
-        DOWNLOAD
-        <AiFillCamera size="1.3em" />
-      </button>
-      <button className="exit" style={{ background: snap.color }} onClick={() => (state.intro = true)}>
-        GO BACK
-        <AiOutlineArrowLeft size="1.3em" />
-      </button>
     </div>
   )
 }

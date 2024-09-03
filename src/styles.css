@@ -90,10 +90,52 @@ section {
   width: 100%;
 }
 
+.title{
+  font-size:20px;
+  padding:0;
+  margin:0
+}
+
+.title2{
+  font-size:16px;
+  padding:0px;
+  margin:0
+}
+
 .uiText {
-  top: 10%;
+  top: 0%;
   position: absolute;
-  width: 80%;
+  width: 100%;
+}
+
+.uiTextInt{
+  margin-left:150px;
+  margin-top:26px
+}
+
+@media screen and (max-width: 800px) {
+  .title{
+    font-size:18px;
+    padding:0;
+    margin:0
+  }
+  
+  .title2{
+    font-size:14px;
+    padding:0px;
+    margin:0
+  }
+  
+  .uiText {
+    top: 70px;
+    position: absolute;
+    width: 100%;
+  }
+  
+  .uiTextInt{
+    margin-left:40px;
+    margin-top:14px
+  }
 }
 
 .uiSection {
@@ -322,8 +364,7 @@ button:hover {
 }
 
 .decals img {
-  width: 24px;
-  filter: saturate(0) invert(1) brightness(5.5);
+  width: 44px;
   transition: all 0.2s ease-in-out;
 }
 

@@ -42,8 +42,8 @@ export function Shoes({ isMobile }) {
   if (isMobile) {
     scaleMesh = [-0.00055, -0.00055, -0.00055]
     rotation = [3, 0.1, 0]
-    position = [-0.02, 0.47, 0]
-    position2 = [-0.077, 0.08, 0.11]
+    position = [0, 0.47, 0]
+    position2 = [-0.057, 0.08, 0.11]
     positionGroup = [0.04, -0.24, 0]
     rotationGroup = [0, snap.rotation_shoes, 0]
   } else {

@@ -51,47 +51,49 @@ export function Overlay() {
         {snap.intro ? (
           <motion.section key="main" {...config}>
             <div className="uiText">
-              <motion.div
-                key="title"
-                initial={{ x: 100, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ type: 'spring', damping: 5, stiffness: 40, restDelta: 0.001, duration: 0.3 }}>
-                <h2>3D Configurator - React Fiber</h2>
-              </motion.div>
-              <div className="uiContent">
+              <div className="uiTextInt">
                 <motion.div
-                  key="p"
-                  initial={{ y: 100, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{
-                    type: 'spring',
-                    damping: 7,
-                    stiffness: 30,
-                    restDelta: 0.001,
-                    duration: 0.6,
-                    delay: 0.2,
-                    delayChildren: 0.2
-                  }}>
-                  <p>Click on a 3d Model for customize.</p>
+                  key="title"
+                  initial={{ x: 100, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ type: 'spring', damping: 5, stiffness: 40, restDelta: 0.001, duration: 0.3 }}>
+                  <h2 className="title">3D Configurator - React Fiber</h2>
                 </motion.div>
+                <div className="uiContent">
+                  <motion.div
+                    key="p"
+                    initial={{ y: 100, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{
+                      type: 'spring',
+                      damping: 7,
+                      stiffness: 30,
+                      restDelta: 0.001,
+                      duration: 0.6,
+                      delay: 0.2,
+                      delayChildren: 0.2
+                    }}>
+                    <p className="title2">Click on a 3d Model for customize.</p>
+                  </motion.div>
+                </div>
               </div>
-            </div>
 
-            <div className="uiSection">
-              <div className="uiContent">
-                <motion.div
-                  key="p"
-                  initial={{ y: 100, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{
-                    type: 'spring',
-                    damping: 7,
-                    stiffness: 30,
-                    restDelta: 0.001,
-                    duration: 0.6,
-                    delay: 0.2,
-                    delayChildren: 0.2
-                  }}></motion.div>
+              <div className="uiSection">
+                <div className="uiContent">
+                  <motion.div
+                    key="p"
+                    initial={{ y: 100, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{
+                      type: 'spring',
+                      damping: 7,
+                      stiffness: 30,
+                      restDelta: 0.001,
+                      duration: 0.6,
+                      delay: 0.2,
+                      delayChildren: 0.2
+                    }}></motion.div>
+                </div>
               </div>
             </div>
           </motion.section>

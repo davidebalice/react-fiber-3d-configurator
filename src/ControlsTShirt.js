@@ -1,7 +1,7 @@
 import { AiFillCamera, AiOutlineArrowLeft } from 'react-icons/ai'
 import { useSnapshot } from 'valtio'
-import { state } from './store'
 import CONFIG from './config'
+import { state } from './store'
 
 export function ControlsTShirt() {
   const snap = useSnapshot(state)
@@ -14,6 +14,21 @@ export function ControlsTShirt() {
   return (
     <div className="customizer">
       <div className="controls">
+        <div className="controls-header">
+          <button onClick={() => (state.intro = true)}>
+            <AiOutlineArrowLeft size="1.3em" /> Back
+          </button>
+
+          <button
+            onClick={() => {
+              const link = document.createElement('a')
+              link.setAttribute('download', 'canvas.png')
+              link.setAttribute('href', document.querySelector('canvas').toDataURL('image/png').replace('image/png', 'image/octet-stream'))
+              link.click()
+            }}>
+            <AiFillCamera size="1.3em" /> Download
+          </button>
+        </div>
         <p>Rotation</p>
         <input
           type="range"
@@ -53,23 +68,6 @@ export function ControlsTShirt() {
           </div>
         </div>
       </div>
-
-      <button
-        className="share"
-        style={{ background: snap.color }}
-        onClick={() => {
-          const link = document.createElement('a')
-          link.setAttribute('download', 'canvas.png')
-          link.setAttribute('href', document.querySelector('canvas').toDataURL('image/png').replace('image/png', 'image/octet-stream'))
-          link.click()
-        }}>
-        DOWNLOAD
-        <AiFillCamera size="1.3em" />
-      </button>
-      <button className="exit" style={{ background: snap.color }} onClick={() => (state.intro = true)}>
-        GO BACK
-        <AiOutlineArrowLeft size="1.3em" />
-      </button>
     </div>
   )
 }

@@ -1,9 +1,10 @@
 import { animated, useSpring } from '@react-spring/three'
 import { Box, Decal, useGLTF, useTexture } from '@react-three/drei'
-import { useFrame } from '@react-three/fiber'
+import { useFrame, useLoader } from '@react-three/fiber'
 import { easing } from 'maath'
 import React, { useRef } from 'react'
 import * as THREE from 'three'
+import { TextureLoader } from 'three'
 import { useSnapshot } from 'valtio'
 import CONFIG from './config'
 import { state } from './store'
@@ -11,6 +12,14 @@ import { state } from './store'
 export function TShirt({ isMobile }) {
   const snap = useSnapshot(state)
   const texture = useTexture(`${CONFIG.BASE_URL}assets/${snap.decal_tshirt}.png`)
+
+  //preload png
+  const texture2 = useLoader(TextureLoader, `${CONFIG.BASE_URL}assets/react.png`)
+  const texture3 = useLoader(TextureLoader, `${CONFIG.BASE_URL}assets/react2.png`)
+  const texture_three = useLoader(TextureLoader, `${CONFIG.BASE_URL}assets/three2.png`)
+  const texture_angular = useLoader(TextureLoader, `${CONFIG.BASE_URL}assets/angular.png`)
+  const texture_angular2 = useLoader(TextureLoader, `${CONFIG.BASE_URL}assets/angular2.png`)
+  //
 
   const { nodes, materials } = useGLTF(`${CONFIG.BASE_URL}assets/tshirt.gltf`)
 
@@ -32,7 +41,7 @@ export function TShirt({ isMobile }) {
   let rotationGroup = [-0.1, snap.rotation_tshirt, 0]
   let position = [0, 0, 0]
   let positionGroup = [-1.06, -0.2, 0]
-  let zoom1 = [0.26, 0.26, 0.26]
+  let zoom1 = [0.28, 0.28, 0.28]
   let zoom2 = [0.48, 0.48, 0.48]
 
   if (isMobile) {
@@ -53,14 +62,14 @@ export function TShirt({ isMobile }) {
 
   const handlePointerOver = (event) => {
     if (meshRef.current && snap.intro === true) {
-      meshRef.current.scale.set(0.267, 0.267, 0.267)
+      meshRef.current.scale.set(0.29, 0.29, 0.29)
       document.body.style.cursor = 'pointer'
     }
   }
 
   const handlePointerOut = (event) => {
     if (meshRef.current && snap.intro === true) {
-      meshRef.current.scale.set(0.26, 0.26, 0.26)
+      meshRef.current.scale.set(0.28, 0.28, 0.28)
       document.body.style.cursor = 'auto'
     }
   }

@@ -24,7 +24,6 @@ dist-ssr
 
 *.blend
 *.blend1
-*.gtlf
+*.gltf
 *.glb
-
-public/assets/*
+*.bin
